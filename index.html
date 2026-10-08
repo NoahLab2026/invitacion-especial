@@ -36,6 +36,28 @@ section{animation:appear .65s ease both}h1,h2,p{margin:0}h1,h2{font-family:Georg
 @media(min-width:700px){main{padding-top:40px}.ticket{padding:40px 55px 30px}.opening{padding-top:20px}.intro-art{margin-top:26px}}
 @media(max-width:370px){main{padding:23px 16px 30px}.stage{height:290px}.envelope{height:200px}.bow{scale:.85}.ticket{padding:30px 22px}.stickers{gap:10px}.intro-art{height:160px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.particle{display:none}}
+
+/* Stickers attached to the invitation edges, with a clear central reading area. */
+.invitation-frame{position:relative;padding:18px 18px 20px;margin:0 -8px 8px}
+.invitation-frame .ticket{padding:36px 43px 30px}
+.invitation-frame .top-cherry{width:62px;margin-bottom:20px}
+.invitation-frame .invitation-message{font-size:17px}
+.invitation-frame .ticket h2{font-size:clamp(57px,14vw,88px)}
+.invitation-frame .personal-message{font-size:20px}
+.invitation-frame .date{font-size:28px}
+.invitation-frame .stickers{position:absolute;inset:0;display:block;max-width:none;margin:0;pointer-events:none}
+.invitation-frame .sticker{position:absolute;width:clamp(54px,13vw,82px);pointer-events:auto;z-index:4;border-width:3px;border-radius:17px;box-shadow:0 7px 14px #44051e55}
+.sticker[data-kind="cherries"]{left:-1px;top:7%;--tilt:-13deg!important}
+.sticker[data-kind="kiss"]{right:-1px;top:10%;--tilt:12deg!important}
+.sticker[data-kind="shoes"]{left:-1px;top:43%;--tilt:-9deg!important}
+.sticker[data-kind="coupe"]{right:-1px;top:48%;--tilt:10deg!important}
+.sticker[data-kind="envelope"]{left:-1px;bottom:5%;--tilt:-11deg!important}
+.sticker[data-kind="card"]{right:-1px;bottom:3%;--tilt:9deg!important}
+.border-hint{margin:0 16px 2px;line-height:1.6}
+.toast{position:fixed;z-index:25;bottom:max(22px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:410px;background:#fff3e7;color:#871938;border:1px solid #ffbfd2;border-radius:19px;box-shadow:0 10px 40px #30031870;min-height:0;margin:0;padding:18px 21px;font-size:18px;pointer-events:none;animation:appearToast .3s ease}
+@keyframes appearToast{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@media(min-width:700px){.invitation-frame{padding:22px 35px 25px;margin:0}.invitation-frame .ticket{padding:42px 65px 35px}.invitation-frame .sticker{width:90px}.invitation-frame .invitation-message{font-size:19px}}
+@media(max-width:370px){.invitation-frame{padding:16px 14px}.invitation-frame .ticket{padding:30px 38px 28px}.invitation-frame .sticker{width:54px}.invitation-frame .invitation-message{font-size:16px}.invitation-frame .personal-message{font-size:18px}.invitation-frame .date{font-size:25px}.invitation-frame .ticket h2{font-size:57px}}
 </style></head>
 <body>
 <div class="fx" id="fx" aria-hidden="true"></div>
@@ -47,7 +69,7 @@ section{animation:appear .65s ease both}h1,h2,p{margin:0}h1,h2{font-family:Georg
 <h1 id="welcomeTitle">Una noche<br><em>irresistible.</em></h1>
 <p class="tagline">Colorín colorado,<br>ser soltera se ha acabado.</p>
 <form id="nameForm" class="name-box"><label for="guest">Confirma tu nombre</label><input id="guest" name="guest" placeholder="Tu nombre, preciosa" autocomplete="given-name" maxlength="60" required><p class="error" id="error" role="alert" hidden></p><button class="primary" type="submit">Este sobre es para mí 💋</button></form>
-<p class="signature">Una invitación especial, solo para vos.</p>
+<p class="signature">Una invitación especial para ti.</p>
 </section>
 <section id="opening" class="opening" hidden aria-labelledby="openingTitle">
 <div class="brand eyebrow">Tu pase a una noche especial</div><p class="guest-title" id="envelopeGuest"></p><h2 id="openingTitle">Hay una sorpresa<br><em>esperándote.</em></h2>
@@ -56,16 +78,16 @@ section{animation:appear .65s ease both}h1,h2,p{margin:0}h1,h2{font-family:Georg
 </section>
 <section id="invitation" hidden aria-labelledby="inviteTitle">
 <div class="brand eyebrow">Cherry Kiss · una última copa</div>
-<article class="ticket"><div class="photo tile-cherries top-cherry" aria-hidden="true"></div><p class="invitation-message">Ven y disfruta de una última copa antes del «Sí, acepto» de nuestra Karlita Monge.</p><h2 id="inviteTitle" tabindex="-1">Karla<br><em>Monge</em></h2><p class="subtitle">Despedida de soltera</p><p id="personalMessage" class="personal-message"></p><span class="vip">PASE VIP · INVITADA ESPECIAL</span><div class="divider"></div><p class="date-label">La noche del jueves</p><p class="date">12 de noviembre</p><p class="time">2026 · 6:30 p. m.</p><p class="place">Restaurante Los Cebollines</p><p class="address">Los Próceres</p><div class="divider"></div><p class="ticket-footer">Una última copa. Un nuevo comienzo.</p></article>
-<p class="explore">Un poquito de encanto… y de picardía.</p><p class="explore-hint">Tocá los stickers: cada uno guarda una sorpresa.</p>
-<div class="stickers">
+<p class="explore-hint border-hint">Tocá los stickers de los bordes: cada uno guarda una sorpresa.</p><div class="invitation-frame"><article class="ticket"><div class="photo tile-cherries top-cherry" aria-hidden="true"></div><p class="invitation-message">Ven y disfruta de una última copa antes del «Sí, acepto» de nuestra Karlita Monge.</p><h2 id="inviteTitle" tabindex="-1">Karla<br><em>Monge</em></h2><p class="subtitle">Despedida de soltera</p><p id="personalMessage" class="personal-message"></p><span class="vip">PASE VIP · INVITADA ESPECIAL</span><div class="divider"></div><p class="date-label">La noche del jueves</p><p class="date">12 de noviembre</p><p class="time">2026 · 6:30 p. m.</p><p class="place">Restaurante Los Cebollines</p><p class="address">Los Próceres</p><div class="divider"></div><p class="ticket-footer">Una última copa. Un nuevo comienzo.</p></article><div class="stickers">
 <button class="photo sticker tile-envelope" style="--tilt:-5deg" type="button" data-kind="envelope" aria-label="Descubrir el secreto del sobre"></button>
 <button class="photo sticker tile-shoes" style="--tilt:4deg" type="button" data-kind="shoes" aria-label="Descubrir la sorpresa de los tacones"></button>
 <button class="photo sticker tile-cherries" style="--tilt:-3deg" type="button" data-kind="cherries" aria-label="Descubrir la sorpresa de las cerezas"></button>
 <button class="photo sticker tile-coupe" style="--tilt:4deg" type="button" data-kind="coupe" aria-label="Brindar por Karlita"></button>
 <button class="photo sticker tile-kiss" style="--tilt:-5deg" type="button" data-kind="kiss" aria-label="Descubrir la sorpresa del beso"></button>
 <button class="photo sticker tile-card" style="--tilt:3deg" type="button" data-kind="card" aria-label="Descubrir el mensaje de la tarjeta"></button>
-</div><p class="toast" id="toast" role="status" aria-live="polite">Seis pequeños secretos para vos.</p>
+</div></div>
+
+<p class="toast" id="toast" role="status" aria-live="polite" hidden></p>
 <div class="actions"><a class="primary" id="confirm" target="_blank" rel="noopener">Sí, me pongo irresistible 💋</a><p class="fine">Abrí WhatsApp y enviá el mensaje para confirmar.</p><p class="confirm-status" id="confirmStatus" role="status" hidden></p><div class="links"><a class="quiet" href="https://www.google.com/maps/search/?api=1&query=Los+Cebollines+Los+Proceres+San+Salvador" target="_blank" rel="noopener">Ver ubicación</a><button class="quiet" id="replay" type="button">Volver a abrir mi sobre</button></div></div>
 </section>
 <p class="signature">Con cariño, para una noche entre cómplices. 🍒</p>
@@ -75,7 +97,7 @@ section{animation:appear .65s ease both}h1,h2,p{margin:0}h1,h2{font-family:Georg
 'use strict';
 const $=id=>document.getElementById(id);
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let guestName='',untied=false,opened=false,revealTimer,dragStart=null;
+let guestName='',untied=false,opened=false,revealTimer,toastTimer,dragStart=null;
 const surprises={
 envelope:{text:'Este secreto viene envuelto con cariño… solo para vos.',symbols:['✦','♡']},
 shoes:{text:'Ponete irresistible… esta noche es para sentirte divina.',symbols:['✦','👠']},
@@ -96,7 +118,7 @@ $('bow').addEventListener('pointerdown',e=>{dragStart=e.clientX;if($('bow').setP
 $('bow').addEventListener('pointermove',e=>{if(dragStart!==null&&Math.abs(e.clientX-dragStart)>45){dragStart=null;untie();}});
 $('bow').addEventListener('pointerup',()=>{dragStart=null;});$('bow').addEventListener('pointercancel',()=>{dragStart=null;});$('bow').addEventListener('click',untie);
 $('seal').addEventListener('click',openEnvelope);$('simple').addEventListener('click',openEnvelope);
-document.querySelectorAll('[data-kind]').forEach(button=>button.addEventListener('click',()=>{const item=surprises[button.dataset.kind];$('toast').textContent=item.text;button.classList.remove('dance');void button.offsetWidth;button.classList.add('dance');celebrate(item.symbols,button);}));
+document.querySelectorAll('[data-kind]').forEach(button=>button.addEventListener('click',()=>{const item=surprises[button.dataset.kind];clearTimeout(toastTimer);$('toast').hidden=false;$('toast').textContent=item.text;toastTimer=setTimeout(()=>{$('toast').hidden=true;},4200);button.classList.remove('dance');void button.offsetWidth;button.classList.add('dance');celebrate(item.symbols,button);}));
 $('confirm').addEventListener('click',()=>{celebrate(['🥂','✦','♡'],$ ('confirm'));$('confirmStatus').hidden=false;$('confirmStatus').textContent='¡Brindamos por vos! Enviá el mensaje en WhatsApp para completar tu confirmación.';});
-$('replay').addEventListener('click',()=>{clearTimeout(revealTimer);opened=false;untied=false;dragStart=null;$('envelope').classList.remove('untied','opened');$('bow').disabled=false;$('seal').disabled=true;$('simple').disabled=false;$('hint').innerHTML='Deslizá el moño hacia un lado…<br>o tocá para desatarlo.';show('opening');$('bow').focus({preventScroll:true});});
+$('replay').addEventListener('click',()=>{clearTimeout(revealTimer);clearTimeout(toastTimer);$('toast').hidden=true;opened=false;untied=false;dragStart=null;$('envelope').classList.remove('untied','opened');$('bow').disabled=false;$('seal').disabled=true;$('simple').disabled=false;$('hint').innerHTML='Deslizá el moño hacia un lado…<br>o tocá para desatarlo.';show('opening');$('bow').focus({preventScroll:true});});
 </script></body></html>
